@@ -12,6 +12,7 @@ class Konsultasi extends Model
     use HasFactory;
     use LogsActivity;
 
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -22,6 +23,11 @@ class Konsultasi extends Model
     public function pasien()
     {
         return $this->belongsTo(Pasien::class, 'pasien_id' );
+    }
+
+    public function dokter()
+    {
+        return $this->belongsTo(Dokter::class, 'dokter_id' );
     }
 
 
@@ -36,6 +42,7 @@ class Konsultasi extends Model
         'pasien_id',
         'mahasiswa_id',
         'topik',
+        'status',
         'created_at'
     ];
 

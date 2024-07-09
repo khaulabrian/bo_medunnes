@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\Pasien as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 // use Mchev\Banhammer\Traits\Bannable;
 
-class Pasien extends Authenticatable
+class Pasien extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, LogsActivity;
 
@@ -27,6 +28,16 @@ class Pasien extends Authenticatable
         return $this->hasMany(Konsultasi::class, 'pasien_id', 'id_pasien');
     }
 
+    public function janji()
+    {
+        return $this->hasMany(janji::class, 'pasien_id', 'id_pasien');
+    }
+
+    public function pasienTambahan()
+    {
+        return $this->hasMany(PasienTambahan::class, 'pasien_id', 'id_pasien');
+    }
+
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +45,6 @@ class Pasien extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_pasien',
         'user_id',
         'NIK',
         'nama_pasien',
